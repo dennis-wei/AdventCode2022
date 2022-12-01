@@ -32,16 +32,17 @@ raw_input = raw_input.strip()
 input = (
     Input(raw_input)
         # .all()
-        .ints()
+        # .ints()
         # .int_tokens()
         # .tokens()
         # .lines()
         # .line_tokens()
-        # .line_tokens(sep = "\n", line_sep = "\n\n")
+        .line_tokens(sep = "\n", line_sep = "\n\n")
 )
 
 def solve(input):
-    return None, None
+    sums = [sum(int(n) for n in e) for e in input]
+    return max(sums), sum(sorted(sums)[-3:])
 
 start = time.time()
 answer1, answer2 = solve(input)

@@ -40,7 +40,7 @@ def submit(day, part, answer):
         'Cookie': f"session={os.environ['ADVENT_SESSION']}",
         'DNT': "1"
     }
-    return requests.post(f"https://adventofcode.com/2021/day/{day}/answer", data = f"level={part}&answer={answer}", headers=headers)
+    return requests.post(f"https://adventofcode.com/2022/day/{day}/answer", data = f"level={part}&answer={answer}", headers=headers)
     
 class Input:
     def __init__(self, raw_input):
