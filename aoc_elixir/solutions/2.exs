@@ -31,7 +31,7 @@ end
 
 results = input
   |> Enum.map(&Day2.rps/1)
-  |> Enum.reduce({0, 0}, &Day2.add_tup/2)
+  |> Enum.reduce(&Day2.add_tup/2)
 
 part1 = elem(results, 0)
 

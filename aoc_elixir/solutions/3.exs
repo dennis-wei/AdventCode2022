@@ -11,7 +11,9 @@ input = Input
 defmodule Day3 do
   def halve(str) do
     half = trunc(String.length(str) / 2)
-    [String.slice(str, 0, half), String.slice(str, half, half)]
+    str
+      |> String.split_at(half)
+      |> Tuple.to_list
   end
 
   def get_shared(charsets) do
