@@ -12,7 +12,7 @@ defmodule Day4 do
   def parse(line) do
     line
       |> String.split(",")
-      |> Enum.flat_map(fn s -> String.split(s, "-") end)
+      |> Enum.flat_map(&String.split(&1, "-"))
       |> Enum.map(&String.to_integer/1)
   end
 

@@ -17,6 +17,10 @@ defmodule Input do
     input
   end
 
+  def raw(filename) do
+    read_file(filename)
+  end
+
   def lines(filename, sep \\ "\n") do
     read_file(filename)
       |> String.trim
