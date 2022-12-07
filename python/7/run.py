@@ -46,12 +46,15 @@ class Node:
         self.dirs = [l.replace("dir ", "") for l in ls_str if l.startswith("dir")]
         self.dirs_filled = {}
         self.leafs = {l.split(" ")[1]: int(l.split(" ")[0]) for l in ls_str if not l.startswith("dir")}
+        self.size_cached = None
     
     def fill(self, nodes):
         self.dirs_filled = {d: nodes[self.prefix + d] for d in self.dirs}
 
     def get_size(self):
-        return sum(d.get_size() for d in self.dirs_filled.values()) + sum(self.leafs.values())
+        if self.size_cached == None:
+            self.size_cached = sum(d.get_size() for d in self.dirs_filled.values()) + sum(self.leafs.values())
+        return self.size_cached
 
 class DirInput:
     def __init__(self, input):
