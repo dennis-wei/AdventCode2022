@@ -65,14 +65,23 @@ class Input:
         return [get_all_nums(l) for l in self.lines()]
 
 class Grid:
-    def __init__(self, input, replacements = {}, default = "."):
-        self.grid = {}
+    def __init__(self, input, replacements = {}, default = ".", static = True):
+        if static:
+            self.grid = {}
+        else:
+            self.grid = defaultdict(lambda: default)
         self.height = len(input)
         self.length = len(input[0])
         self.default = default
+        self.static = static
         for row_num, row in enumerate(input):
             for col_num, c in enumerate(row):
                 self.grid[(row_num, col_num)] = replacements.get(c, c)
+        
+        self.min_x = 0
+        self.max_x = self.height
+        self.min_y = 0
+        self.max_y = self.length
 
     def items(self):
         return self.grid.items()
@@ -84,14 +93,21 @@ class Grid:
         else:
             checks = [(1, 0), (0, 1), (-1, 0), (0, -1)]
         for xd, yd in checks:
-            if (x + xd, y + yd) in self.grid:
+            if not self.static or (x + xd, y + yd) in self.grid:
                 ret[(x + xd, y + yd)] = self.grid[(x + xd, y + yd)]
         return ret
 
+    def update_size(self):
+        self.min_x = min(k[0] for k in self.grid.keys())
+        self.max_x = max(k[0] for k in self.grid.keys()) + 1
+        self.min_y = min(k[1] for k in self.grid.keys())
+        self.max_y = max(k[1] for k in self.grid.keys()) + 1
+
     def print_grid(self, replacements = {}):
-        for i in range(self.height):
-            for j in range(self.length):
+        self.update_size()
+        for i in range(self.min_x, self.max_x):
+            for j in range(self.min_y, self.max_y):
                 v = self.grid.get((i, j), self.default)
-                print(replacements.get(v, v), end="")
+                print(replacements.get((i, j), v), end="")
             print()
         print()
