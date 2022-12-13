@@ -67,25 +67,28 @@ with open(f"python/{day}/run.py", 'w') as f:
     f.write(python_template)
 
 elixir_template = f"""
-Code.require_file("lib/input.ex")
-Code.require_file("lib/grid.ex")
-filename = "input/{day}.txt"
-# filename = "test_input/{day}.txt"
-input = Input
-  # .ints(filename)
-  # .line_tokens(filename)
-  # .lines(filename)
-  # .line_of_ints(filename)
 
 defmodule Day{day} do
+  def get_input do
+    # filename = "input/{day}.txt"
+    filename = "test_input/{day}.txt"
+    input = Input
+      # .ints(filename)
+      # .line_tokens(filename)
+      # .lines(filename)
+      # .line_of_ints(filename)
+  end
+
+  def solve do
+    input = get_input()
+    part1 = nil
+    part2 = nil
+    IO.puts("Part 1: #{{part1}}")
+    IO.puts("Part 2: #{{part2}}")
+  end
 end
 
-part1 = nil
-
-part2 = nil
-
-IO.puts("Part 1: #{{part1}}")
-IO.puts("Part 2: #{{part2}}")
+Day{day}.solve()
 """.strip()
 
 with open(f"aoc_elixir/solutions/{day}.exs", 'w') as f:

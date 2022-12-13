@@ -59,23 +59,13 @@ defmodule Day12 do
       |> length
       |> then(fn n -> n - 1 end)
 
-    all_as = Enum.filter(grid, fn {_k, v} -> v <= 1 end)
-      |> Enum.map(fn {k, _v} -> k end)
+    a_edges = Enum.filter(grid, fn {_k, v} -> v <= 1 end)
+      |> Enum.map(fn {k, _v} -> {start_point, k, weight: 0} end)
 
-    {best_len, _best_path} = Enum.reduce(all_as, {1000, nil}, fn candidate, {best_len, best_path} ->
-      path = Graph.dijkstra(graph, candidate, end_point)
-      case path do
-        nil -> {best_len, best_path}
-        p ->
-          len = length(p)
-          cond do
-            len < best_len -> {len, p}
-            true -> {best_len, best_path}
-          end
-      end
-    end)
-
-    p2 = best_len - 1
+    updated_graph = Graph.add_edges(graph, a_edges)
+    p2 = Graph.dijkstra(updated_graph, start_point, end_point)
+      |> length
+      |> then(fn n -> n - 2 end)
 
     IO.puts("Part 1: #{p1}")
     IO.puts("Part 2: #{p2}")
