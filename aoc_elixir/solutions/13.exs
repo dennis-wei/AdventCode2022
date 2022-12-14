@@ -1,7 +1,9 @@
 defmodule Day13 do
-  def get_input do
-    filename = "input/13.txt"
-    # filename = "test_input/13.txt"
+  def get_input(test \\ false) do
+    filename = case test do
+      false -> "input/13.txt"
+      true -> "test_input/13.txt"
+    end
     Input
       # .ints(filename)
       .line_tokens(filename, "\n", "\n\n")
@@ -53,8 +55,8 @@ defmodule Day13 do
     JSON.decode!(line)
   end
 
-  def solve do
-    input = get_input()
+  def solve(test \\ false) do
+    input = get_input(test)
       |> Enum.map(fn [p1, p2] -> [code_eval(p1), code_eval(p2)] end)
 
     evaled = input
