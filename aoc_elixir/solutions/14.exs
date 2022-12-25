@@ -115,6 +115,7 @@ defmodule Day14 do
 
   def solve(test \\ false) do
     input = get_input(test)
+      |> Enum.uniq
     base_grid = parse_input(input)
 
     pt1_grid = simulate_sand(base_grid)
