@@ -166,7 +166,7 @@ defmodule Day19 do
       true -> %{}
     end
 
-    IO.inspect("Done simulating part 1")
+    IO.puts("\nDone simulating part 1")
 
     part1 = pt1_guesses
       |> IO.inspect
@@ -187,7 +187,7 @@ defmodule Day19 do
     end
 
     pt2_guesses = monte_carlo_agent(32, Enum.slice(input, 0, 3), pt2_num_iters)
-    IO.inspect("Done simulating part 2")
+    IO.puts("\nDone simulating part 2")
 
     part2 = pt2_guesses
       |> IO.inspect
