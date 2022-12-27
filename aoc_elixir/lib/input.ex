@@ -21,14 +21,17 @@ defmodule Input do
     read_file(filename)
   end
 
-  def lines(filename, sep \\ "\n") do
+  def lines(filename, sep \\ "\n", trim \\ true) do
     read_file(filename)
-      |> String.trim
+      |> then(fn s -> cond do
+        trim -> String.trim(s)
+        true -> s
+      end end)
       |> String.split(sep)
   end
 
-  def line_tokens(filename, sep1 \\ " ", sep2 \\ "\n") do
-    lines(filename, sep2)
+  def line_tokens(filename, sep1 \\ " ", sep2 \\ "\n", trim \\ true) do
+    lines(filename, sep2, trim)
       |> Enum.map(fn r -> String.split(r, sep1) end)
   end
 
